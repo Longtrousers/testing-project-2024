@@ -1,7 +1,9 @@
 import unittest
 import sys
+from selenium import webdriver
 sys.path.append(r"C:\\Users\\Arfus\\Documents\\GitHub\\testing-project-2024")
 import src.filteringLib as filteringLib
+import src.sortLib as sortLib
 
 
 
@@ -16,12 +18,17 @@ class TestHepsiburadaScraping(unittest.TestCase):
     def test_prices_within_range(self):
         url = "https://www.hepsiburada.com/ara?q=bilgisayar&filtreler=fiyat:14400-42600"
         prices = filteringLib.get_prices(url)
-        print(prices)
         prices_within_range = all(14400 <= price <= 42600 for price in prices)
 
         self.assertTrue(prices_within_range, "Tüm ürünlerin fiyatları istenilen aralıkta değil.")
+        
+    # def test_rating_filter(self):
+    #     url = "https://www.hepsiburada.com/ara?q=bilgisayar&puan=4-max"
+    #     rating = filteringLib.get_ratings(url)
+    #     print(rating)
+    #     prices_within_range = True
+    #     self.assertTrue(prices_within_range, "Tüm ürünlerin fiyatları istenilen aralıkta değil.")
 
             
-
 if __name__ == "__main__":
     unittest.main()

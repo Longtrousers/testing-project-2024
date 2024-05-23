@@ -24,16 +24,34 @@ def get_prices(url):
     driver.get(url)
     # Ürünlerin fiyatlarını kontrol et
     price_divs = driver.find_elements(By.XPATH, "//div[@class='product-list']//div[@data-test-id='price-current-price']")
-    prices = list(map(lambda x: int(sub("\D+", "", x.text)[0:-2]), price_divs))
+    prices = list(map(lambda x: int(sub("\\D+", "", x.text)[0:-2]), price_divs))
     return prices
 
+def get_ratings(url):
+    
+    driver = webdriver.Chrome()
+    driver.get(url)
+    
+    # Each rating has 5 uls which all have one div
+    ratings_divs = driver.find_elements(
+        By.XPATH, "//div[@class='product-list']//ul[@data-baseweb='star-rating']/li/div")
+    ratings = []
 
+    for i in range(0, len(ratings_divs)):  # Compact those divs into ratings
+        _ = ratings_divs[i].get_attribute("width")
+        if _ is not None:
+            if len(ratings) <= i // 5:
+                ratings.append(float(_.replace("%", "")) / 100)
+            else:
+                ratings[i // 5] += float(_.replace("%", "")) / 100
 
-if __name__ == "__main__":
-    url = "https://www.hepsiburada.com/ara?q=bilgisayar&markalar=asus"
-    asus_products = get_asus_products(url)
-    for product_name in asus_products:
-        if "asus" in product_name:
-            print(f"Ürün Asus markasına ait: {product_name}")
-        else:
-            print(f"Bu ürün Asus markasına ait değil: {product_name}")
+    return ratings
+
+# if __name__ == "__main__":
+#     url = "https://www.hepsiburada.com/ara?q=bilgisayar&markalar=asus"
+#     asus_products = get_asus_products(url)
+#     for product_name in asus_products:
+#         if "asus" in product_name:
+#             print(f"Ürün Asus markasına ait: {product_name}")
+#         else:
+#             print(f"Bu ürün Asus markasına ait değil: {product_name}")
