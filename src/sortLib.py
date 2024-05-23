@@ -26,7 +26,7 @@ def get_reviews(url: str, title: str, driver) -> list[int]:
     return reviews
 
 
-def get_sales(url: str, title: str, driver) -> list[int]:
+def get_discounts(url: str, title: str, driver) -> list[int]:
     driver.get(url)
     assert title in driver.title
 
@@ -61,15 +61,21 @@ def get_ratings(url: str, title: str, driver) -> tuple[list[int], list[int]]:
 driver = webdriver.Firefox()
 ratings, reviews = get_ratings(
     "https://www.hepsiburada.com/ara?q=bilgisayar&siralama=degerlendirmepuani", "Hepsiburada", driver)
+driver.close()
 print(ratings)
 print(reviews)
 
 total = sum(reviews)
-weighted_ratings = [i * reviews[i] / total for i in ratings]
+weighted_ratings = [ratings[i] * reviews[i] /
+                    total for i in range(0, len(ratings))]
+print(weighted_ratings)
 
 fig, ax = plt.subplots()
-ax.plot
-
+ax.plot(weighted_ratings, label="weighted")
+ax.plot(ratings, label="ratings")
+ax.plot(reviews, label="reviews")
+lgd = ax.legend(loc="upper right")
+plt.show()
 # ratings = np.array(ratings)
 # reviews = np.array(reviews)
 # m, b = np.polyfit(range(0, len(ratings)), ratings, 1)
@@ -78,4 +84,3 @@ ax.plot
 # ax.scatter(range(0, len(ratings)), ratings)
 # ax.plot(range(0, len(ratings)), m*ratings + b)
 # plt.show()
-driver.close()
