@@ -24,6 +24,7 @@ def get_prices(url):
     # Ürünlerin fiyatlarını kontrol et
     price_divs = driver.find_elements(By.XPATH, "//div[@class='product-list']//div[@data-test-id='price-current-price']")
     prices = list(map(lambda x: int(sub("\\D+", "", x.text)[0:-2]), price_divs))
+    driver.quit()
     return prices
 
 def get_ratings(url):
