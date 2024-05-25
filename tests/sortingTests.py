@@ -3,6 +3,7 @@ import os
 import unittest
 from parameterized import parameterized
 from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
 # project_path = os.path.abspath(os.path.join('..'))
 # if project_path not in sys.path:
 #     sys.path.insert(0, project_path)]
@@ -15,7 +16,9 @@ class TestSorting(unittest.TestCase):
     param_master = ["bilgisayar", "çanta", "ayakkabı", "telefon", "kalem"]
     #aram_master = ["telefon"]
     def setUp(self):
-        self.driver = webdriver.Firefox()
+        options = Options()
+        options.add_argument("--headless")
+        self.driver = webdriver.Firefox(options)
         self.title = "Hepsiburada"
 
     @parameterized.expand(param_master)
@@ -67,7 +70,7 @@ class TestSorting(unittest.TestCase):
         self.assertTrue(flag)
 
     @parameterized.expand(param_master)
-    @unittest.skip("")
+    #@unittest.skip("")
     def testSortRatingsHigh(self, item_name):
         url = f"https://www.hepsiburada.com/ara?q={item_name}&siralama=degerlendirmepuani"
         ratings = get_ratings(url, self.title, self.driver)
