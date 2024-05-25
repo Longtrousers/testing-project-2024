@@ -44,6 +44,7 @@ def get_ratings(url):
             else:
                 ratings[i // 5] += float(_.replace("%", "")) / 100
 
+    driver.quit()
     return ratings
 
 # if __name__ == "__main__":
