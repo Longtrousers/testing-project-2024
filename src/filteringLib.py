@@ -5,10 +5,9 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 
-def get_asus_products(url):
+def get_products(url):
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
     # Hepsiburada sayfasına gidin
-    url = "https://www.hepsiburada.com/ara?q=bilgisayar&markalar=asus"
     driver.get(url)
     # Sayfanın tamamen yüklenmesi için biraz bekleyin
     time.sleep(5)
@@ -28,7 +27,6 @@ def get_prices(url):
     return prices
 
 def get_ratings(url):
-    
     driver = webdriver.Chrome()
     driver.get(url)
     
