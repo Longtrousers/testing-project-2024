@@ -22,7 +22,7 @@ class TestHepsiburadaScraping(unittest.TestCase):
         product_names = filteringLib.get_products(url)
 
         for product_name in product_names:
-            self.assertIn(brand, product_name, f"Bu ürün {brand} markasına ait değil: {product_name}")
+            self.assertIn(brand, product_name.lower(), f"Bu ürün {brand} markasına ait değil: {product_name}")
             
     
 #----------------------------------------------- TYPE ----------------------------------------------- #
@@ -31,31 +31,31 @@ class TestHepsiburadaScraping(unittest.TestCase):
         url = "https://www.hepsiburada.com/ara?q=kalem&filtreler=MainCategory.Id:21037855"
         product_names = filteringLib.get_products(url)
         for product_name in product_names:
-            self.assertIn("tükenmez", product_name, f"Bu ürün Tükenmez kalem değildir: {product_name}")
+            self.assertIn("tükenmez", product_name.lower(), f"Bu ürün Tükenmez kalem değildir: {product_name}")
             
     def test_bicycle_type(self):
         url = "https://www.hepsiburada.com/ara?q=bisiklet&filtreler=MainCategory.Id:353125"
         product_names = filteringLib.get_products(url)
         for product_name in product_names:
-            self.assertIn("Dağ Bisikleti", product_name, f"Bu ürün Dağ Bisikleti değildir: {product_name}")
+            self.assertIn("dağ bisikleti", product_name.lower(), f"Bu ürün Dağ Bisikleti değildir: {product_name}")
             
     def test_bag_type(self):
         url = "https://www.hepsiburada.com/ara?q=çanta&filtreler=MainCategory.Id:60003897"
         product_names = filteringLib.get_products(url)
         for product_name in product_names:
-            self.assertIn("El çantası", product_name, f"Bu ürün El çantası değildir: {product_name}")
+            self.assertIn("el çantası", product_name.lower(), f"Bu ürün El çantası değildir: {product_name}")
             
     def test_carTire_type(self):
         url = "https://www.hepsiburada.com/oto-lastikler-c-259720?filtreler=mevsim:Yaz"
         product_names = filteringLib.get_products(url)
         for product_name in product_names:
-            self.assertIn("yaz", product_name, f"Bu ürün yaz lastiği değildir: {product_name}")
+            self.assertIn("yaz", product_name.lower(), f"Bu ürün yaz lastiği değildir: {product_name}")
             
     def test_bulb_type(self):
         url = "https://www.hepsiburada.com/ampuller-c-13003202?filtreler=ampulcinsi:LED"
         product_names = filteringLib.get_products(url)
         for product_name in product_names:
-            self.assertIn("led", product_name, f"Bu ürün led bulb değildir: {product_name}")
+            self.assertIn("led", product_name.lower(), f"Bu ürün led bulb değildir: {product_name}")
     
 #----------------------------------------------- PRICE ----------------------------------------------- #
 
