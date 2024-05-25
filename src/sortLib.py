@@ -11,7 +11,6 @@ def get_prices(url: str, title: str, driver) -> list[int]:
     price_divs = driver.find_elements(
         By.XPATH, "//div[@class='product-list']//div[@data-test-id='price-current-price']")
     prices = list(map(lambda x: int(sub("\\D+", "", x.text)), price_divs))
-    print(prices)
     return prices
 
 
@@ -22,7 +21,6 @@ def get_reviews(url: str, title: str, driver) -> list[int]:
     review_divs = driver.find_elements(
         By.XPATH, "//div[@class='product-list']//div[@data-test-id='review']//div[2]")
     reviews = list(map(lambda x: int(sub("\\D+", "", x.text)), review_divs))
-    print(reviews)
     return reviews
 
 
@@ -33,7 +31,6 @@ def get_discounts(url: str, title: str, driver) -> list[int]:
     sales_divs = driver.find_elements(
         By.XPATH, "//div[@class='product-list']//div[@data-test-id='price-prev-price-discount']")
     sales = list(map(lambda x: int(sub("\\D+", "", x.text)), sales_divs))
-    print(sales)
     return sales
 
 
@@ -53,5 +50,4 @@ def get_ratings(url: str, title: str, driver) -> list[int]:
                 ratings.append(float(_.replace("%", "")) / 100)
             else:
                 ratings[i // 5] += float(_.replace("%", "")) / 100
-    print(ratings)
     return ratings
