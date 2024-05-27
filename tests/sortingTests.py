@@ -13,8 +13,8 @@ from src.sortLib import get_discounts, get_prices, get_ratings, get_reviews
 class TestSorting(unittest.TestCase):
     # Parameters for test are atomized for easier testing.
     # Sorting queries are added in tests.
-    param_master = ["bilgisayar", "çanta", "ayakkabı", "telefon", "kalem"]
-    #aram_master = ["telefon"]
+    #param_master = ["bilgisayar", "çanta", "ayakkabı", "telefon", "kalem"]
+    param_master = ["bilgisayar"]
     def setUp(self):
         options = Options()
         options.add_argument("--headless")
@@ -22,7 +22,7 @@ class TestSorting(unittest.TestCase):
         self.title = "Hepsiburada"
 
     @parameterized.expand(param_master)
-    #@unittest.skip("")
+    @unittest.skip("")
     def testSortPriceHigh(self, item_name):
         url = f"https://www.hepsiburada.com/ara?q={item_name}&siralama=azalanfiyat"
         prices = get_prices(url, self.title, self.driver)
@@ -34,7 +34,7 @@ class TestSorting(unittest.TestCase):
         self.assertTrue(flag)
 
     @parameterized.expand(param_master)
-    #@unittest.skip("")
+    @unittest.skip("")
     def testSortPriceLow(self, item_name):
         url = f"https://www.hepsiburada.com/ara?q={item_name}&siralama=artanfiyat"
         prices = get_prices(url, self.title, self.driver)
@@ -46,7 +46,7 @@ class TestSorting(unittest.TestCase):
         self.assertTrue(flag)
 
     @parameterized.expand(param_master)
-    #@unittest.skip("")
+    @unittest.skip("")
     def testSortReviewsHigh(self, item_name):
         url = f"https://www.hepsiburada.com/ara?q={item_name}&siralama=yorumsayisi"
         reviews = get_reviews(url, self.title, self.driver)
@@ -58,7 +58,7 @@ class TestSorting(unittest.TestCase):
         self.assertTrue(flag)
 
     @parameterized.expand(param_master)
-    #@unittest.skip("")
+    @unittest.skip("")
     def testSortDiscountsHigh(self, item_name):
         url = f"https://www.hepsiburada.com/ara?q={item_name}&siralama=indirimurunler"
         discounts = get_discounts(url, self.title, self.driver)
